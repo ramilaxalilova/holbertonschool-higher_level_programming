@@ -12,7 +12,7 @@ def roman_to_int(roman_string):
     r_digt = 0
     prev = 0
     for N in reversed(roman_string):
-        r_digt = roman_dict[N]
+        r_digt = roman_dict.get(N, 0)
         if r_digt >= prev:
             num += r_digt
         elif r_digt < prev:
