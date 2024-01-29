@@ -12,7 +12,6 @@ def roman_to_int(roman_string):
     num = 0
     r_digt = 0
     prev = 0
-    count = 0
     for N in reversed(roman_string):
         r_digt = roman_dict[N]
         if r_digt >= prev:
