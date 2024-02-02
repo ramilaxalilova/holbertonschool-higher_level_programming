@@ -1,11 +1,11 @@
 #!/usr/bin/python3
-"""
-next step in square class
-"""
+"""next step in square class"""
 
 
 class Square:
+    """Square class with private attribute size"""
     def __init__(self, size=0):
+        """Initialize Square with size attribute"""
         self.__size = size
 
     @property
@@ -21,4 +21,5 @@ class Square:
         self.__size = value
 
     def area(self):
+        """Public instance method that returns the current square area."""
         return self.__size * self.__size
