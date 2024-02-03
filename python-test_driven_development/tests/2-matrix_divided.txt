@@ -25,6 +25,7 @@ Non int/float inputs in lists of matrix:
     ...
     TypeError: matrix must be a matrix (list of lists) of integers/floats
 
+
 Zero "div" input:
     >>> matrix = [[1, 2, 3], [4, 5, 6]]
     >>> print(matrix_divided(matrix, 0))
