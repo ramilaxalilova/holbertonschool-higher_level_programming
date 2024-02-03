@@ -53,10 +53,11 @@ Float and negative input:
 
 Float overflow:
 
-    >>> add_integer(float('inf'))
-	Traceback (most recent call last):
-	...
-	OverflowError: cannot convert float infinity to integer
+    >>> try:
+    ...    add_integer(float('inf'))
+    ... except OverflowError as e:
+    ...     print(f"OverflowError: {e}")	
+    OverflowError: cannot convert float infinity to integer
 
 Float NaN:
 
