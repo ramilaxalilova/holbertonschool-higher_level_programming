@@ -53,8 +53,10 @@ Float and negative input:
 
 Float overflow:
 
-    >>> add_integer(1500.5)
-    1598
+    >>> add_integer(float('inf'))
+	Traceback (most recent call last):
+	...
+	OverflowError: cannot convert float infinity to integer
 
 Float NaN:
 
