@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 """Defines rectangle"""
 
+
 class Rectangle:
     """rectangle"""
     def __init__(self, width=0, height=0):
-    """initializes rectangle height and width"""
         self.width = width
         self.height = height
 
@@ -14,7 +14,7 @@ class Rectangle:
         return self.__width
 
     @property
-    def height(self)
+    def height(self):
         """defines width as private"""
         return self.__height
 
@@ -29,10 +29,9 @@ class Rectangle:
 
     @heightsetter
     def height(self, value):
-       """set height"""
-       if isinstance(height, int):
-           raise TypeError(height must be an integer)
-       if height < 0:
-           raise ValueError(height must be an integer)
-       self.__height = value
-
+        """set height"""
+        if isinstance(height, int):
+            raise TypeError(height must be an integer)
+        if height < 0:
+            raise ValueError(height must be an integer)
+        self.__height = value
