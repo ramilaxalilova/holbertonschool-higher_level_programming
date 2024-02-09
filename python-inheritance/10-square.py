@@ -2,6 +2,7 @@
 """create empty class"""
 Rectangle = __import__('9-rectangle').Rectangle
 
+
 class Square(Rectangle):
     """create square based on rectangle"""
 
