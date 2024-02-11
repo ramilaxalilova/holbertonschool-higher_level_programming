@@ -1,6 +1,5 @@
 #!/usr/bin/python3
-"""Contains function that returns int lists of pascal triangle of any given size"""
-
+"""Contains function that returns int"""
 
 def pascal_triangle(n):
     """Returns a pascal triangle matrix"""
