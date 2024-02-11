@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Contains function that returns int"""
 
+
 def pascal_triangle(n):
     """Returns a pascal triangle matrix"""
     triangle = []
