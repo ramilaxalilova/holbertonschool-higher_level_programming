@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """ractangle from base"""
-from models.base import Base
+from base import Base
 
 
 class Rectangle(Base):
@@ -61,4 +61,5 @@ class Rectangle(Base):
         self.__y = value
 
     def area(self):
+        """rectangle area"""
         return self.width * self.height
