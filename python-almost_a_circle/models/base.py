@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 """create base class"""
 import json
+import os.path
+import turtle
 
 
 class Base:
@@ -36,3 +38,30 @@ class Base:
             for elem in list_objs:
                 json_attrs.append(elem.to_dictionary())
             return f.write(cls.to_json_string(json_attrs))
+
+    @staticmethod
+    def from_json_string(json_string):
+        if json_string is None or len(json_string) == 0:
+            return []
+
+        return json.loads(json_string)
+
+    @classmethod
+    def create(cls, **dictionary):
+        if cls.__name__ == 'Square':
+            dummy = cls(3)
+
+        if cls.__name__ == 'Rectangle':
+            dummy = cls(3, 3)
+
+        dummy.update(**dictionary)
+        return dummy
+
+    @classmethod
+    def load_from_file(cls):
+        """file to instances"""
+        if not os.path.exists(cls.__name__ + ".json"):
+            return []
+        with open(cls.__name__ + ".json", "r") as file:
+            stuff = cls.from_json_string(file.read())
+        return [cls.create(**index) for index in stuff]
