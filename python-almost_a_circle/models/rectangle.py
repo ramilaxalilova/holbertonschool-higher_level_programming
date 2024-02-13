@@ -1,12 +1,11 @@
 #!/usr/bin/python3
-"""ractangle from base"""
+"""rectangleeeeeeee"""
 from base import Base
 
 
 class Rectangle(Base):
     """RECTANGLE CLASSkmdkem"""
     def __init__(self, width, height, x=0, y=0, id=None):
-        """..."""
         super().__init__(id)
         self.width = width
         self.height = height
@@ -15,12 +14,10 @@ class Rectangle(Base):
 
     @property
     def width(self):
-        """..."""
         return self.__width
 
     @width.setter
     def width(self, value):
-        """..."""
         if type(value) is not int:
             raise TypeError("width must be an integer")
         elif value <= 0:
@@ -29,12 +26,10 @@ class Rectangle(Base):
 
     @property
     def height(self):
-        """..."""
         return self.__height
 
     @height.setter
     def height(self, value):
-        """..."""
         if type(value) is not int:
             raise TypeError("height must be an integer")
         elif value <= 0:
@@ -43,12 +38,10 @@ class Rectangle(Base):
 
     @property
     def x(self):
-        """..."""
         return self.__x
 
     @x.setter
     def x(self, value):
-        """..."""
         if type(value) is not int:
             raise TypeError("x must be an integer")
         elif value < 0:
@@ -57,12 +50,10 @@ class Rectangle(Base):
 
     @property
     def y(self):
-        """...1"""
         return self.__y
 
     @y.setter
     def y(self, value):
-        """..."""
         if type(value) is not int:
             raise TypeError("y must be an integer")
         elif value < 0:
@@ -71,9 +62,11 @@ class Rectangle(Base):
 
     def area(self):
         """rectangle area"""
+
         return self.width * self.height
 
     def display(self):
-        """..."""
+        """display with #"""
+
         for _ in range(self.height):
             print('#' * self.width)
