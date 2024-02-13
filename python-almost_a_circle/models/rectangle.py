@@ -1,10 +1,10 @@
 #!/usr/bin/python3
-"""ractangle class based on base class"""
-from base import Base
+"""rectangle class based on base class"""
+from models.base import Base
 
 
 class Rectangle(Base):
-    """RECTANGLE CLASS"""
+    """this class is class of class"""
 
     def __init__(self, width, height, x=0, y=0, id=None):
         super().__init__(id)
@@ -62,17 +62,17 @@ class Rectangle(Base):
         self.__y = value
 
     def area(self):
-        """rectangle area"""
+        """calculates rectangle area"""
 
         return self.width * self.height
 
     def display(self):
-        """"display with #"""
+        """"somthng with #. replace items with #"""
 
         for _ in range(self.height):
             print('#' * self.width)
 
     def __str__(self):
-        """Return a string repr."""
+        """Return a string representationf rectangle."""
 
         return f"[Rectangle] ({self.id}) {self.x}/{self.y} - {self.width}/{self.height}"
