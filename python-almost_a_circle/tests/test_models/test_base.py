@@ -137,6 +137,22 @@ class TestBase(unittest.TestCase):
              str(msg.exception)
         )
 
+    def test_from_json_string(self):
+        """17. JSON string to dictionary"""
+        # Normal use: 1 arg (str)
+        a = Base.from_json_string('[{"id": 10}, {"id": 15}]')
+        self.assertEqual(a, [{'id': 10}, {'id': 15}])
+        # Empty str
+        b = Base.from_json_string('')
+        self.assertEqual(b, [])
+        # None str
+        c = Base.from_json_string(None)
+        self.assertEqual(c, [])
+        # TypeError: no args
+        self.assertRaises(TypeError, Base.from_json_string)
+        # TypeError: 2+ args
+        self.assertRaises(TypeError, Base.from_json_string, a, b)
+
     def test_load_from_file(self):
         """
         Test the load_from_file method
