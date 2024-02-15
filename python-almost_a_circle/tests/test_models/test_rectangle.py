@@ -115,4 +115,124 @@ class TestRectangle(TestCase):
         with self.assertRaises(TypeError):
             Rectangle(2, 4).display(42)
 
+    def setUp(self):
+        Base._Base__nb_objects = 0
 
+    def test_update_no_args(self):
+        r = Rectangle(2, 4, 1, 2, 42)
+        r.update()
+        self.assertEqual(str(r), "[Rectangle] (42) 1/2 - 2/4")
+
+    def test_update_args_none_id(self):
+        r = Rectangle(2, 4, 1, 2, 42)
+        r.update(None)
+        self.assertEqual(str(r), "[Rectangle] (1) 1/2 - 2/4")
+
+    def test_update_args_id(self):
+        r = Rectangle(2, 4, 1, 2, 42)
+        r.update(24)
+        self.assertEqual(str(r), "[Rectangle] (24) 1/2 - 2/4")
+
+    def test_update_args_id_width(self):
+        r = Rectangle(2, 4, 1, 2, 42)
+        r.update(24, 10)
+        self.assertEqual(str(r), "[Rectangle] (24) 1/2 - 10/4")
+
+    def test_update_args_id_width_height(self):
+        r = Rectangle(2, 4, 1, 2, 42)
+        r.update(24, 10, 20)
+        self.assertEqual(str(r), "[Rectangle] (24) 1/2 - 10/20")
+
+    def test_update_args_id_width_height_x(self):
+        r = Rectangle(2, 4, 1, 2, 42)
+        r.update(24, 10, 20, 30)
+        self.assertEqual(str(r), "[Rectangle] (24) 30/2 - 10/20")
+
+    def test_update_args_id_width_height_x_y(self):
+        r = Rectangle(2, 4, 1, 2, 42)
+        r.update(24, 10, 20, 30, 40)
+        self.assertEqual(str(r), "[Rectangle] (24) 30/40 - 10/20")
+
+    def test_update_args_too_many_args(self):
+        r = Rectangle(2, 4, 1, 2, 42)
+        r.update(10, 10, 10, 10, 10, 50, 60)
+        self.assertEqual(str(r), "[Rectangle] (10) 10/10 - 10/10")
+
+    def setUp(self):
+        Base._Base__nb_objects = 0
+
+    def test_update_kwargs_none_id(self):
+        r = Rectangle(2, 4, 1, 2, 42)
+        r.update(id=None)
+        self.assertEqual(str(r), "[Rectangle] (1) 1/2 - 2/4")
+
+    def test_update_kwargs_id(self):
+        r = Rectangle(2, 4, 1, 2, 42)
+        r.update(id=24)
+        self.assertEqual(str(r), "[Rectangle] (24) 1/2 - 2/4")
+
+    def test_update_kwargs_id_width(self):
+        r = Rectangle(2, 4, 1, 2, 42)
+        r.update(width=10, id=24)
+        self.assertEqual(str(r), "[Rectangle] (24) 1/2 - 10/4")
+
+    def test_update_kwargs_id_width_height(self):
+        r = Rectangle(2, 4, 1, 2, 42)
+        r.update(width=10, id=24, height=20)
+        self.assertEqual(str(r), "[Rectangle] (24) 1/2 - 10/20")
+
+    def test_update_kwargs_id_width_height_x(self):
+        r = Rectangle(2, 4, 1, 2, 42)
+        r.update(width=10, id=24, x=30, height=20)
+        self.assertEqual(str(r), "[Rectangle] (24) 30/2 - 10/20")
+
+    def test_update_kwargs_id_width_height_x_y(self):
+        r = Rectangle(2, 4, 1, 2, 42)
+        r.update(y=40, width=10, id=24, x=30, height=20)
+        self.assertEqual(str(r), "[Rectangle] (24) 30/40 - 10/20")
+
+    def test_update_kwargs_too_many_args(self):
+        r = Rectangle(2, 4, 1, 2, 42)
+        r.update(y=10, width=10, id=10, x=10, height=10, betty="holberton")
+        self.assertEqual(str(r), "[Rectangle] (10) 10/10 - 10/10")
+
+    def test_update_kwargs_mixed_too_many_args(self):
+        r = Rectangle(2, 4, 1, 2, 42)
+        r.update(y=10, width=10, betty="holberton", id=10, x=10, height=10)
+        self.assertEqual(str(r), "[Rectangle] (10) 10/10 - 10/10")
+
+    def test_update_kwargs_args_before(self):
+        r = Rectangle(2, 4, 1, 2, 42)
+        r.update(42, 42, 42, y=10, x=10)
+        self.assertEqual(str(r), "[Rectangle] (42) 1/2 - 42/42")
+
+    def test_update_kwargs_not_all_mixed(self):
+        r = Rectangle(2, 4, 1, 2, 42)
+        r.update(y=10, x=10, height=10)
+        self.assertEqual(str(r), "[Rectangle] (42) 10/10 - 2/10")
+
+    def test_update_kwargs_only_wrong_keys(self):
+        r = Rectangle(2, 4, 1, 2, 42)
+        r.update(betty="holberton", holberton="betty")
+        self.assertEqual(str(r), "[Rectangle] (42) 1/2 - 2/4")
+
+    def setUp(self):
+        Base._Base__nb_objects = 0
+
+    def test_str_print(self):
+        expected = "[Rectangle] (42) 1/3 - 2/4"
+        with mock.patch('sys.stdout', new=StringIO()) as output:
+            print(Rectangle(2, 4, 1, 3, 42), end='')
+            self.assertEqual(output.getvalue(), expected)
+
+    def test_str_str_method(self):
+        expected = "[Rectangle] (98) 3/1 - 4/2"
+        self.assertEqual(Rectangle(4, 2, 3, 1, 98).__str__(), expected)
+
+    def test_str_str(self):
+        expected = "[Rectangle] (1) 0/0 - 4/4"
+        self.assertEqual(str(Rectangle(4, 4)), expected)
+
+    def test_str_str_method_with_args(self):
+        with self.assertRaises(TypeError):
+            Rectangle(2, 4).__str__(42)
