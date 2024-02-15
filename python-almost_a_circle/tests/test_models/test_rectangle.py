@@ -53,76 +53,35 @@ class TestRectangle(unittest.TestCase):
         Rectangle class
         """
         with self.assertRaises(TypeError):
-            Rectangle('Monty', 'Python')
+            Rectangle('C', 'Python')
 
-    def test_type_param(self):
-        """
-        Test different types of parameters
-        for a Rectangle class
-        """
+    def test_type_errors(self):
         with self.assertRaises(TypeError):
-            Rectangle(1.01, 3)
-            raise TypeError()
+            Rectangle()
+        with self.assertRaises(TypeError):
+            Rectangle(1)
+        with self.assertRaises(TypeError):
+            Rectangle("1", 2)
+        with self.assertRaises(TypeError):
+            Rectangle(1, "2")
+        with self.assertRaises(TypeError):
+            Rectangle(1, 2, "3")
+        with self.assertRaises(TypeError):
+            Rectangle(1, 2, 3, "4")
 
+    def test_value_errors(self):
         with self.assertRaises(ValueError):
-            Rectangle(-234234242, 45)
-            raise ValueError()
-
-        with self.assertRaises(TypeError):
-            Rectangle('', 4)
-            raise TypeError()
-
-        with self.assertRaises(TypeError):
-            Rectangle(True, 4)
-            raise TypeError()
-
-        with self.assertRaises(TypeError):
-            Rectangle(5, 1.76)
-            raise TypeError()
-
-        with self.assertRaises(TypeError):
-            Rectangle(5, "Hello")
-            raise TypeError()
-
-        with self.assertRaises(TypeError):
-            Rectangle(5, False)
-            raise TypeError()
-
+            Rectangle(-1, 2)
         with self.assertRaises(ValueError):
-            Rectangle(5, -4798576398576)
-            raise ValueError
-
-        with self.assertRaises(TypeError):
-            Rectangle(5, 1, 1.50)
-            raise TypeError()
-
-        with self.assertRaises(TypeError):
-            Rectangle(5, 6, "test")
-            raise TypeError()
-
-        with self.assertRaises(TypeError):
-            Rectangle(5, 7, False)
-            raise TypeError()
-
+            Rectangle(1, -2)
         with self.assertRaises(ValueError):
-            Rectangle(5, 7, -4798576398576)
-            raise ValueError()
-
-        with self.assertRaises(TypeError):
-            Rectangle(5, 1, 1, 1.53)
-            raise TypeError()
-
-        with self.assertRaises(TypeError):
-            Rectangle(5, 6, 5, "test")
-            raise TypeError()
-
-        with self.assertRaises(TypeError):
-            Rectangle(5, 7, 7, False)
-            raise TypeError()
-
+            Rectangle(0, 2)
         with self.assertRaises(ValueError):
-            Rectangle(5, 9, 5, -4798576398576)
-            raise ValueError()
+            Rectangle(1, 0)
+        with self.assertRaises(ValueError):
+            Rectangle(1, 2, -3)
+        with self.assertRaises(ValueError):
+            Rectangle(1, 2, 3, -4)
 
 if __name__ == "__main__":
     unittest.main()
