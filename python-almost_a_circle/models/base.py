@@ -2,7 +2,7 @@
 """create base class"""
 import json
 import os.path
-import turtle
+
 
 
 class Base:
