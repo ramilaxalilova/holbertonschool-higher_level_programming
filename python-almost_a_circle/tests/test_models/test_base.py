@@ -49,7 +49,7 @@ class TestBase(unittest.TestCase):
         self.assertEqual(type(json_data), str)
 
     def test_to_json_string(self):
-        """tests fucntion functionality"""
+        """tests functionality"""
 
         rect_data = {'id': 31, 'x': 14, 'y': 11, 'width': 3, 'height': 3}
         json_data = Base.to_json_string([rect_data])
@@ -60,3 +60,14 @@ class TestBase(unittest.TestCase):
             json_data,
             '{["id": 31, "x": 14, "y": 11, "width": 3, "height": 3]}'
         )
+
+    def test_from_json_string(self):
+        """check from_json_string"""
+        list_input = [{'id': 89, 'width': 10, 'height': 4},
+                      {'id': 7, 'width': 1, 'height': 7}]  # list dict
+        json_list_input = Rectangle.to_json_string(list_input)  # str list dict
+        list_output = Rectangle.from_json_string(json_list_input)  # list dict
+        self.assertTrue(list_input == list_output)
+
+if __name__ == "__main__":
+    unittest.main()
