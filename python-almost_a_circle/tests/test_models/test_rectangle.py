@@ -3,12 +3,13 @@
 A module that test differents behaviors
 of the Base class
 """
-import unittest
+from unittest import TestCase, mock
+from io import StringIO
 from models.base import Base
 from models.rectangle import Rectangle
 
 
-class TestRectangle(unittest.TestCase):
+class TestRectangle(TestCase):
     """
     A class to test the Rectangle Class
     """
@@ -28,12 +29,12 @@ class TestRectangle(unittest.TestCase):
         r2 = Rectangle(2, 10)
         r3 = Rectangle(10, 2, 0, 0, 12)
 
-        self.assertEqual(r1.id, 3)
+        self.assertEqual(r1.id, 10)
         self.assertEqual(r1.width, 10)
         self.assertEqual(r1.height, 2)
         self.assertEqual(r1.x, 0)
         self.assertEqual(r1.y, 0)
-        self.assertEqual(r2.id, 4)
+        self.assertEqual(r2.id, 11)
         self.assertEqual(r2.width, 2)
         self.assertEqual(r2.height, 10)
         self.assertEqual(r2.x, 0)
@@ -83,5 +84,35 @@ class TestRectangle(unittest.TestCase):
         with self.assertRaises(ValueError):
             Rectangle(1, 2, 3, -4)
 
-if __name__ == "__main__":
-    unittest.main()
+    def test_area_basic(self):
+        self.assertEqual(Rectangle(2, 4).area(), 8)
+
+    def test_area_with_args(self):
+        with self.assertRaises(TypeError):
+            Rectangle(2, 4).area(42)
+
+    def test_display_basic(self):
+        with mock.patch('sys.stdout', new=StringIO()) as output:
+            Rectangle(2, 4).display()
+            self.assertEqual(output.getvalue(), '##\n##\n##\n##\n')
+
+    def test_display_with_x(self):
+        with mock.patch('sys.stdout', new=StringIO()) as output:
+            Rectangle(2, 4, 2).display()
+            self.assertEqual(output.getvalue(), '  ##\n  ##\n  ##\n  ##\n')
+
+    def test_display_with_y(self):
+        with mock.patch('sys.stdout', new=StringIO()) as output:
+            Rectangle(2, 4, 0, 2).display()
+            self.assertEqual(output.getvalue(), '\n\n##\n##\n##\n##\n')
+
+    def test_display_with_x_y(self):
+        with mock.patch('sys.stdout', new=StringIO()) as output:
+            Rectangle(2, 4, 2, 2).display()
+            self.assertEqual(output.getvalue(), '\n\n  ##\n  ##\n  ##\n  ##\n')
+
+    def test_display_with_args(self):
+        with self.assertRaises(TypeError):
+            Rectangle(2, 4).display(42)
+
+
