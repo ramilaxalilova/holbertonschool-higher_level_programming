@@ -1,9 +1,12 @@
 #!/usr/bin/python3
+"""unittest for base class"""
+
 import unittest
 import os
 from models.base import Base
 
-class TestBase(unittest.TestCase):
+class TestBaseClass(unittest.TestCase):
+    """test class for testing base class"""
 
     def setUp(self):
         Base._Base__nb_objects = 0
