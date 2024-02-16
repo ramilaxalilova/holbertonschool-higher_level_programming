@@ -6,6 +6,7 @@ of the Base class
 import unittest
 from unittest import mock
 from io import StringIO
+import json
 from models.base import Base
 from models.rectangle import Rectangle
 
@@ -30,12 +31,12 @@ class TestRectangle(unittest.TestCase):
         r2 = Rectangle(2, 10)
         r3 = Rectangle(10, 2, 0, 0, 12)
 
-        self.assertEqual(r1.id, 10)
+        self.assertEqual(r1.id, 11)
         self.assertEqual(r1.width, 10)
         self.assertEqual(r1.height, 2)
         self.assertEqual(r1.x, 0)
         self.assertEqual(r1.y, 0)
-        self.assertEqual(r2.id, 11)
+        self.assertEqual(r2.id, 12)
         self.assertEqual(r2.width, 2)
         self.assertEqual(r2.height, 10)
         self.assertEqual(r2.x, 0)
@@ -171,6 +172,31 @@ class TestRectangle(unittest.TestCase):
         self.assertEqual(str(r46), "[Rectangle] (1) 1/9 - 10/2")
         r46_dictionary = r46.to_dictionary()
         self.assertEqual(r45_dictionary, r46_dictionary)
+
+    def test_create(self):
+        rect_dict = {'id': 89, 'width': 10, 'height': 20, 'x': 2, 'y': 3}
+        rect = Rectangle.create(**rect_dict)
+        self.assertEqual(rect.id, 89)
+        self.assertEqual(rect.width, 10)
+        self.assertEqual(rect.height, 20)
+        self.assertEqual(rect.x, 2)
+        self.assertEqual(rect.y, 3)
+    def test_save_to_file_none(self):
+        Rectangle.save_to_file(None)
+        with open("Rectangle.json", "r") as file:
+            self.assertEqual(file.read(), "[]")
+
+    def test_save_to_file_empty(self):
+        Rectangle.save_to_file([])
+        with open("Rectangle.json", mode="r") as file:
+            self.assertEqual(file.read(), "[]")
+
+    def test_save_to_file(self):
+        rect = Rectangle(1, 2)
+        Rectangle.save_to_file([rect])
+        with open("Rectangle.json", "r") as file:
+            content = json.load(file)
+            self.assertEqual(content, [rect.to_dictionary()])
 
 
 if __name__ == '__main__':
