@@ -7,7 +7,6 @@ import unittest
 from unittest import mock
 from io import StringIO
 import json
-import os
 from models.base import Base
 from models.rectangle import Rectangle
 
@@ -190,7 +189,7 @@ class TestRectangle(unittest.TestCase):
 
     def test_save_to_file_empty(self):
         Rectangle.save_to_file([])
-        with open("Rectangle.json", mode="r") as file:
+        with open("Rectangle.json", "r") as file:
             self.assertEqual(file.read(), "[]")
 
     def test_save_to_file(self):
