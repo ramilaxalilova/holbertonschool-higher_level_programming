@@ -69,5 +69,17 @@ class TestBase(unittest.TestCase):
         list_output = Rectangle.from_json_string(json_list_input)  # list dict
         self.assertTrue(list_input == list_output)
 
+    def test_wrong_save_to_file(self):
+        """
+        Test the save_to_file method
+        """
+        with self.assertRaises(AttributeError) as msg:
+            Base.save_to_file([Base(1), Base(2)])
+
+        self.assertEqual(
+             "'Base' object has no attribute 'to_dictionary'",
+             str(msg.exception)
+        )
+
 if __name__ == "__main__":
     unittest.main()
