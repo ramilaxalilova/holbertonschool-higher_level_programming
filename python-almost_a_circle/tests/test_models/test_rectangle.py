@@ -7,6 +7,7 @@ import unittest
 from unittest import mock
 from io import StringIO
 import json
+import os
 from models.base import Base
 from models.rectangle import Rectangle
 
@@ -31,12 +32,12 @@ class TestRectangle(unittest.TestCase):
         r2 = Rectangle(2, 10)
         r3 = Rectangle(10, 2, 0, 0, 12)
 
-        self.assertEqual(r1.id, 11)
+        self.assertEqual(r1.id, 15)
         self.assertEqual(r1.width, 10)
         self.assertEqual(r1.height, 2)
         self.assertEqual(r1.x, 0)
         self.assertEqual(r1.y, 0)
-        self.assertEqual(r2.id, 12)
+        self.assertEqual(r2.id, 16)
         self.assertEqual(r2.width, 2)
         self.assertEqual(r2.height, 10)
         self.assertEqual(r2.x, 0)
@@ -184,7 +185,7 @@ class TestRectangle(unittest.TestCase):
 
     def test_save_to_file_none(self):
         Rectangle.save_to_file(None)
-        with open("Rectangle.json", mode="r") as file:
+        with open("Rectangle.json", "r") as file:
             self.assertEqual(file.read(), "[]")
 
     def test_save_to_file_empty(self):
@@ -199,6 +200,21 @@ class TestRectangle(unittest.TestCase):
             content = json.load(file)
             self.assertEqual(content, [rect.to_dictionary()])
 
+    def test_load_from_file(self):
+        """ Test load JSON file """
+        load_file = Rectangle.load_from_file()
+        self.assertEqual(load_file, [])
 
+    def test_load_from_file_2(self):
+        """ Test load JSON file """
+        r1 = Rectangle(5, 5)
+        r2 = Rectangle(8, 2, 5, 5)
+
+        linput = [r1, r2]
+        Rectangle.save_to_file(linput)
+        loutput = Rectangle.load_from_file()
+
+        for i in range(len(linput)):
+            self.assertEqual(linput[i].__str__(), loutput[i].__str__())
 if __name__ == '__main__':
     unittest.main()
