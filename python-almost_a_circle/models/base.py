@@ -4,7 +4,6 @@ import json
 import os.path
 
 
-
 class Base:
     """create class with private attribute"""
     __nb_objects = 0
