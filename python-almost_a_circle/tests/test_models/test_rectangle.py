@@ -3,13 +3,14 @@
 A module that test differents behaviors
 of the Base class
 """
-from unittest import TestCase, mock
+import unittest
+from unittest import mock
 from io import StringIO
 from models.base import Base
 from models.rectangle import Rectangle
 
 
-class TestRectangle(TestCase):
+class TestRectangle(unittest.TestCase):
     """
     A class to test the Rectangle Class
     """
@@ -115,4 +116,62 @@ class TestRectangle(TestCase):
         with self.assertRaises(TypeError):
             Rectangle(2, 4).display(42)
 
-    
+    def test_str(self):
+        r1 = Rectangle(4, 6, 2, 1, 12)
+        self.assertEqual(str(r1), "[Rectangle] (12) 2/1 - 4/6")
+        r2 = Rectangle(5, 5, 1, 0, 1)
+        self.assertEqual(str(r2), "[Rectangle] (1) 1/0 - 5/5")
+
+    def test_update(self):
+        r44 = Rectangle(10, 10, 10, 10, 1)
+        self.assertEqual(str(r44), "[Rectangle] (1) 10/10 - 10/10")
+        r44.update(89)
+        self.assertEqual(str(r44), "[Rectangle] (89) 10/10 - 10/10")
+        r44.update(89, 2)
+        self.assertEqual(str(r44), "[Rectangle] (89) 10/10 - 2/10")
+        r44.update(89, 2, 3)
+        self.assertEqual(str(r44), "[Rectangle] (89) 10/10 - 2/3")
+        r44.update(89, 2, 3, 4)
+        self.assertEqual(str(r44), "[Rectangle] (89) 4/10 - 2/3")
+        r44.update(89, 2, 3, 4, 5)
+        self.assertEqual(str(r44), "[Rectangle] (89) 4/5 - 2/3")
+        r44.update(height=1)
+        self.assertEqual(str(r44), "[Rectangle] (89) 4/5 - 2/1")
+        r44.update(width=1, x=2)
+        self.assertEqual(str(r44), "[Rectangle] (89) 2/5 - 1/1")
+        r44.update(y=1, width=2, x=3, id=44)
+        self.assertEqual(str(r44), "[Rectangle] (44) 3/1 - 2/1")
+        r44.update(45, 10, y=0, width=10, x=4, id=89)
+        self.assertEqual(str(r44), "[Rectangle] (45) 3/1 - 10/1")
+
+        with self.assertRaises(TypeError):
+            r44.update(89, 2, 3, 'h', 5)
+        with self.assertRaises(TypeError):
+            r44.update(89, 'h', 3, 2, 5)
+        with self.assertRaises(TypeError):
+            r44.update(y=1, width='h', x=3, id=44)
+
+    def test_to_dict_rect(self):
+        r45 = Rectangle(10, 2, 1, 9, 1)
+        r46 = Rectangle(11, 10, 10, 10, 10)
+        r45_dictionary = r45.to_dictionary()
+        self.assertTrue(type(r45_dictionary) is dict)
+        self.assertIn('id', r45_dictionary)
+        self.assertIn('width', r45_dictionary)
+        self.assertIn('height', r45_dictionary)
+        self.assertIn('x', r45_dictionary)
+        self.assertIn('y', r45_dictionary)
+        self.assertEqual(r45_dictionary['id'], 1)
+        self.assertEqual(r45_dictionary['width'], 10)
+        self.assertEqual(r45_dictionary['height'], 2)
+        self.assertEqual(r45_dictionary['x'], 1)
+        self.assertEqual(r45_dictionary['y'], 9)
+        self.assertEqual(len(r45_dictionary), 5)
+        r46.update(**r45_dictionary)
+        self.assertEqual(str(r46), "[Rectangle] (1) 1/9 - 10/2")
+        r46_dictionary = r46.to_dictionary()
+        self.assertEqual(r45_dictionary, r46_dictionary)
+
+
+if __name__ == '__main__':
+    unittest.main()
