@@ -181,9 +181,10 @@ class TestRectangle(unittest.TestCase):
         self.assertEqual(rect.height, 20)
         self.assertEqual(rect.x, 2)
         self.assertEqual(rect.y, 3)
+
     def test_save_to_file_none(self):
         Rectangle.save_to_file(None)
-        with open("Rectangle.json", "r") as file:
+        with open("Rectangle.json", mode="r") as file:
             self.assertEqual(file.read(), "[]")
 
     def test_save_to_file_empty(self):
