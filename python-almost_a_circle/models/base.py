@@ -27,17 +27,16 @@ class Base:
 
     @classmethod
     def save_to_file(cls, list_objs):
-        filename = cls.__name__ + '.json'
+        """Docs for holberton checker"""
 
-        with open(filename, mode='w', encoding='utf-8') as f:
-            if list_objs is None:
-                return f.write(cls.to_json_string(None))
+        filename = f"{cls.__name__}.json"
 
-            json_attrs = []
-
-            for elem in list_objs:
-                json_attrs.append(elem.to_dictionary())
-            return f.write(cls.to_json_string(json_attrs))
+        with open(filename, mode="w") as f:
+            if list_objs is None and list_objs != {}:
+                f.write("[]")
+            else:
+                dict_lists = [o.to_dictionary() for o in list_objs]
+                f.write(cls.to_json_string(dict_lists))
 
     @staticmethod
     def from_json_string(json_string):
